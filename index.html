@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GatePass - Request Entry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo-icon {
+            font-size: 3rem;
+            width: 60px;
+            height: 60px;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        .logo-text span {
+            color: #333;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: #666;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid #ff6b6b;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-search {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .navbar-search input {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 200px;
+            transition: border-color 0.3s;
+        }
+
+        .navbar-search input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        .navbar-search button {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .navbar-search button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .navbar-link {
+            padding: 8px 16px;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .navbar-link:hover {
+            background: #f0f0f0;
+        }
+
+        .navbar-link.active {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .modal h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .gatepass-id-display {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .gatepass-id-display label {
+            display: block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .gatepass-id-display .id {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: monospace;
+            word-break: break-all;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-copy {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-copy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-copy:active {
+            transform: translateY(0);
+        }
+
+        .btn-close {
+            background: #e0e0e0;
+            color: #333;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-close:hover {
+            background: #d0d0d0;
+        }
+
+        .copy-success {
+            display: none;
+            color: #10b981;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .copy-success.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .navbar-brand {
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+
+            .navbar-links {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .navbar-search {
+                width: 100%;
+            }
+
+            .navbar-search input {
+                width: 100%;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .modal {
+                padding: 25px;
+                width: 95%;
+            }
+
+            .gatepass-id-display .id {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px 20px;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .modal-actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <img src="public/Screenshot 2026-04-17 121408.png" alt="Virginia Farms Logo">
+                </div>
+                <div class="logo-text">Virginia <span>Farms</span></div>
+            </div>
+            <h1>🎫 GatePass Request</h1>
+            <p>Submit your visitor entry request</p>
+        </header>
+
+        <nav class="navbar">
+            <div class="navbar-brand">
+                🎫 GatePass
+            </div>
+            <div class="navbar-links">
+                <div class="navbar-search">
+                    <input type="text" id="navbarSearchInput" placeholder="Enter Gate Pass ID">
+                    <button onclick="checkStatusFromNavbar()">Check Status</button>
+                </div>
+                <a href="index.html" class="navbar-link active">Request</a>
+                <a href="admin.html" class="navbar-link">Admin</a>
+            </div>
+        </nav>
+
+        <div class="card form-section">
+            <h2>📝 Request Gate Pass</h2>
+            <form id="gatepassForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="visitorName">Visitor Name *</label>
+                        <input type="text" id="visitorName" required placeholder="Enter full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="visitorType">Visitor Type *</label>
+                        <select id="visitorType" required>
+                            <option value="">Select type</option>
+                            <option value="guest">Guest</option>
+                            <option value="contractor">Contractor</option>
+                            <option value="delivery">Delivery</option>
+                            <option value="interviewee">Interviewee</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactNumber">Contact Number *</label>
+                        <input type="tel" id="contactNumber" required placeholder="Enter phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company/Organization</label>
+                        <input type="text" id="company" placeholder="Company name (optional)">
+                    </div>
+                    <div class="form-group">
+                        <label for="visitDate">Visit Date *</label>
+                        <input type="date" id="visitDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="visitTime">Visit Time *</label>
+                        <input type="time" id="visitTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hostName">Host Name *</label>
+                        <input type="text" id="hostName" required placeholder="Person being visited">
+                    </div>
+                    <div class="form-group">
+                        <label for="vehicleNumber">Vehicle Number</label>
+                        <input type="text" id="vehicleNumber" placeholder="License plate (if applicable)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="purpose">Purpose of Visit *</label>
+                    <textarea id="purpose" required placeholder="Describe the purpose of the visit"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-icon">✅</div>
+            <h2>Gate Pass Created!</h2>
+            <p>Your gate pass request has been submitted successfully and is pending approval. Save your Gate Pass ID to check the status later.</p>
+            <div class="gatepass-id-display">
+                <label>Your Gate Pass ID</label>
+                <div class="id" id="modalGatepassId"></div>
+            </div>
+            <div class="modal-actions">
+                <button onclick="copyGatepassId()" class="btn-copy">
+                    <span>📋</span> Copy ID
+                </button>
+                <button onclick="closeModal()" class="btn-close">Close</button>
+            </div>
+            <div id="copySuccess" class="copy-success">✓ Copied to clipboard!</div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize data from localStorage
+        let gatepasses = JSON.parse(localStorage.getItem('gatepasses')) || [];
+
+        // DOM Elements
+        const form = document.getElementById('gatepassForm');
+        const successModal = document.getElementById('successModal');
+        const modalGatepassId = document.getElementById('modalGatepassId');
+        const copySuccess = document.getElementById('copySuccess');
+
+        // Set default date to today
+        document.getElementById('visitDate').valueAsDate = new Date();
+
+        // Form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const gatepass = {
+                id: Date.now().toString(),
+                visitorName: document.getElementById('visitorName').value,
+                visitorType: document.getElementById('visitorType').value,
+                contactNumber: document.getElementById('contactNumber').value,
+                company: document.getElementById('company').value,
+                visitDate: document.getElementById('visitDate').value,
+                visitTime: document.getElementById('visitTime').value,
+                hostName: document.getElementById('hostName').value,
+                vehicleNumber: document.getElementById('vehicleNumber').value,
+                purpose: document.getElementById('purpose').value,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                checkInTime: null,
+                checkOutTime: null
+            };
+
+            gatepasses.unshift(gatepass);
+            saveGatepasses();
+            
+            // Show modal with gate pass ID
+            modalGatepassId.textContent = gatepass.id;
+            successModal.classList.add('show');
+            copySuccess.classList.remove('show');
+            form.reset();
+            document.getElementById('visitDate').valueAsDate = new Date();
+        });
+
+        // Copy gate pass ID to clipboard
+        function copyGatepassId() {
+            const gatepassId = modalGatepassId.textContent;
+            
+            navigator.clipboard.writeText(gatepassId).then(() => {
+                copySuccess.classList.add('show');
+                setTimeout(() => {
+                    copySuccess.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = gatepassId;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                copySuccess.classList.add('show');
+                setTimeout(() => {
+                    copySuccess.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Close modal
+        function closeModal() {
+            successModal.classList.remove('show');
+        }
+
+        // Close modal when clicking outside
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && successModal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+
+        // Check gate pass status by ID from navbar
+        function checkStatusFromNavbar() {
+            const navbarInput = document.getElementById('navbarSearchInput');
+            const gatepassId = navbarInput.value.trim();
+            
+            if (!gatepassId) {
+                alert('Please enter a Gate Pass ID');
+                return;
+            }
+            
+            // Redirect to status page with ID as parameter
+            window.location.href = `status.html?id=${encodeURIComponent(gatepassId)}`;
+        }
+
+        // Save to localStorage
+        function saveGatepasses() {
+            localStorage.setItem('gatepasses', JSON.stringify(gatepasses));
+        }
+    </script>
+</body>
+</html>

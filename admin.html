@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GatePass Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo-icon {
+            font-size: 3rem;
+            width: 60px;
+            height: 60px;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6b6b;
+        }
+
+        .logo-text span {
+            color: #333;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            color: #666;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 2px solid #ff6b6b;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar-search {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .navbar-search input {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            width: 200px;
+            transition: border-color 0.3s;
+        }
+
+        .navbar-search input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+        }
+
+        .navbar-search button {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .navbar-search button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .navbar-link {
+            padding: 8px 16px;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .navbar-link:hover {
+            background: #f0f0f0;
+        }
+
+        .navbar-link.active {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-section select {
+            padding: 10px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .gatepass-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .gatepass-item {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 20px;
+            align-items: center;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .gatepass-item.status-pending {
+            border-left-color: #f59e0b;
+        }
+
+        .gatepass-item.status-approved {
+            border-left-color: #10b981;
+        }
+
+        .gatepass-item.status-rejected {
+            border-left-color: #ef4444;
+        }
+
+        .gatepass-item.status-exited {
+            border-left-color: #6366f1;
+        }
+
+        .gatepass-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gatepass-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .gatepass-detail {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .gatepass-detail strong {
+            color: #333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-exited {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .navbar-brand {
+                justify-content: center;
+                margin-bottom: 15px;
+            }
+
+            .navbar-links {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .navbar-search {
+                width: 100%;
+            }
+
+            .navbar-search input {
+                width: 100%;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gatepass-item {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .actions button {
+                flex: 1;
+                min-width: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .logo-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-section {
+                flex-direction: column;
+            }
+
+            .filter-section select {
+                width: 100%;
+            }
+
+            .gatepass-info h3 {
+                font-size: 1rem;
+            }
+
+            .gatepass-details {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <img src="public/Screenshot 2026-04-17 121408.png" alt="Virginia Farms Logo">
+                </div>
+                <div class="logo-text">Virginia <span>Farms</span></div>
+            </div>
+            <h1>🔐 Admin Dashboard</h1>
+            <p>Manage gate pass requests and approvals</p>
+        </header>
+
+        <nav class="navbar">
+            <div class="navbar-brand">
+                🔐 GatePass Admin
+            </div>
+            <div class="navbar-links">
+                <div class="navbar-search">
+                    <input type="text" id="adminSearchInput" placeholder="Search by ID or Name">
+                    <button onclick="searchGatepass()">Search</button>
+                </div>
+                <a href="index.html" class="navbar-link">Request Form</a>
+                <a href="status.html" class="navbar-link">Check Status</a>
+                <a href="#" class="navbar-link active">Dashboard</a>
+            </div>
+        </nav>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number" id="totalCount">0</div>
+                <div class="label">Total Passes</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="pendingCount">0</div>
+                <div class="label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="approvedCount">0</div>
+                <div class="label">Approved</div>
+            </div>
+            <div class="stat-card">
+                <div class="number" id="activeCount">0</div>
+                <div class="label">Active On-Site</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📋 Gate Pass Records</h2>
+            <div class="filter-section">
+                <select id="statusFilter">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="exited">Exited</option>
+                </select>
+                <select id="typeFilter">
+                    <option value="all">All Types</option>
+                    <option value="guest">Guest</option>
+                    <option value="contractor">Contractor</option>
+                    <option value="delivery">Delivery</option>
+                    <option value="interviewee">Interviewee</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div id="gatepassList" class="gatepass-list">
+                <div class="empty-state">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    <p>No gate passes yet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize data from localStorage
+        let gatepasses = JSON.parse(localStorage.getItem('gatepasses')) || [];
+
+        // DOM Elements
+        const gatepassList = document.getElementById('gatepassList');
+        const statusFilter = document.getElementById('statusFilter');
+        const typeFilter = document.getElementById('typeFilter');
+
+        // Filter change handlers
+        statusFilter.addEventListener('change', renderGatepasses);
+        typeFilter.addEventListener('change', renderGatepasses);
+
+        // Search gate pass by ID or name
+        function searchGatepass() {
+            const searchTerm = document.getElementById('adminSearchInput').value.trim().toLowerCase();
+            
+            if (!searchTerm) {
+                renderGatepasses();
+                return;
+            }
+            
+            const filtered = gatepasses.filter(g => 
+                g.id.toLowerCase().includes(searchTerm) || 
+                g.visitorName.toLowerCase().includes(searchTerm)
+            );
+            
+            if (filtered.length === 0) {
+                gatepassList.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        <p>No gate passes found matching "${escapeHtml(searchTerm)}".</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            renderFilteredGatepasses(filtered);
+        }
+
+        function renderFilteredGatepasses(filtered) {
+            if (filtered.length === 0) {
+                gatepassList.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        <p>No gate passes found.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            gatepassList.innerHTML = filtered.map(g => `
+                <div class="gatepass-item status-${g.status}">
+                    <div class="gatepass-info">
+                        <h3>${escapeHtml(g.visitorName)} <span class="status-badge status-${g.status}">${g.status.charAt(0).toUpperCase() + g.status.slice(1)}</span></h3>
+                        <div class="gatepass-detail" style="margin-bottom: 10px;"><strong>Gate Pass ID:</strong> <code style="background: #ffe4e4; padding: 2px 6px; border-radius: 4px; font-family: monospace;">${g.id}</code></div>
+                        <div class="gatepass-details">
+                            <div class="gatepass-detail"><strong>Type:</strong> ${g.visitorType.charAt(0).toUpperCase() + g.visitorType.slice(1)}</div>
+                            <div class="gatepass-detail"><strong>Contact:</strong> ${escapeHtml(g.contactNumber)}</div>
+                            <div class="gatepass-detail"><strong>Host:</strong> ${escapeHtml(g.hostName)}</div>
+                            <div class="gatepass-detail"><strong>Date:</strong> ${formatDate(g.visitDate)}</div>
+                            <div class="gatepass-detail"><strong>Time:</strong> ${g.visitTime}</div>
+                            ${g.company ? `<div class="gatepass-detail"><strong>Company:</strong> ${escapeHtml(g.company)}</div>` : ''}
+                            ${g.vehicleNumber ? `<div class="gatepass-detail"><strong>Vehicle:</strong> ${escapeHtml(g.vehicleNumber)}</div>` : ''}
+                        </div>
+                        <div class="gatepass-detail"><strong>Purpose:</strong> ${escapeHtml(g.purpose)}</div>
+                        ${g.checkInTime ? `<div class="gatepass-detail"><strong>Check-in Time:</strong> ${formatDateTime(g.checkInTime)}</div>` : ''}
+                        ${g.checkOutTime ? `<div class="gatepass-detail"><strong>Check-out Time:</strong> ${formatDateTime(g.checkOutTime)}</div>` : ''}
+                    </div>
+                    <div class="actions">
+                        ${g.status === 'pending' ? `
+                            <button onclick="updateStatus('${g.id}', 'approved')" class="btn btn-success">Approve</button>
+                            <button onclick="updateStatus('${g.id}', 'rejected')" class="btn btn-danger">Reject</button>
+                        ` : ''}
+                        ${g.status === 'approved' && !g.checkOutTime ? `
+                            <button onclick="checkOut('${g.id}')" class="btn btn-primary">Check Out</button>
+                        ` : ''}
+                        <button onclick="deleteGatepass('${g.id}')" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('totalCount').textContent = gatepasses.length;
+            document.getElementById('pendingCount').textContent = gatepasses.filter(g => g.status === 'pending').length;
+            document.getElementById('approvedCount').textContent = gatepasses.filter(g => g.status === 'approved').length;
+            document.getElementById('activeCount').textContent = gatepasses.filter(g => g.status === 'approved' && !g.checkOutTime).length;
+        }
+
+        // Render gate passes
+        function renderGatepasses() {
+            const statusFilterValue = statusFilter.value;
+            const typeFilterValue = typeFilter.value;
+
+            let filtered = gatepasses.filter(g => {
+                if (statusFilterValue !== 'all' && g.status !== statusFilterValue) return false;
+                if (typeFilterValue !== 'all' && g.visitorType !== typeFilterValue) return false;
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                gatepassList.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        <p>No gate passes found matching the filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            gatepassList.innerHTML = filtered.map(g => `
+                <div class="gatepass-item status-${g.status}">
+                    <div class="gatepass-info">
+                        <h3>${escapeHtml(g.visitorName)} <span class="status-badge status-${g.status}">${g.status.charAt(0).toUpperCase() + g.status.slice(1)}</span></h3>
+                        <div class="gatepass-detail" style="margin-bottom: 10px;"><strong>Gate Pass ID:</strong> <code style="background: #ffe4e4; padding: 2px 6px; border-radius: 4px; font-family: monospace;">${g.id}</code></div>
+                        <div class="gatepass-details">
+                            <div class="gatepass-detail"><strong>Type:</strong> ${g.visitorType.charAt(0).toUpperCase() + g.visitorType.slice(1)}</div>
+                            <div class="gatepass-detail"><strong>Contact:</strong> ${escapeHtml(g.contactNumber)}</div>
+                            <div class="gatepass-detail"><strong>Host:</strong> ${escapeHtml(g.hostName)}</div>
+                            <div class="gatepass-detail"><strong>Date:</strong> ${formatDate(g.visitDate)}</div>
+                            <div class="gatepass-detail"><strong>Time:</strong> ${g.visitTime}</div>
+                            ${g.company ? `<div class="gatepass-detail"><strong>Company:</strong> ${escapeHtml(g.company)}</div>` : ''}
+                            ${g.vehicleNumber ? `<div class="gatepass-detail"><strong>Vehicle:</strong> ${escapeHtml(g.vehicleNumber)}</div>` : ''}
+                        </div>
+                        <div class="gatepass-detail"><strong>Purpose:</strong> ${escapeHtml(g.purpose)}</div>
+                        ${g.checkInTime ? `<div class="gatepass-detail"><strong>Check-in:</strong> ${formatDateTime(g.checkInTime)}</div>` : ''}
+                        ${g.checkOutTime ? `<div class="gatepass-detail"><strong>Check-out:</strong> ${formatDateTime(g.checkOutTime)}</div>` : ''}
+                    </div>
+                    <div class="actions">
+                        ${g.status === 'pending' ? `
+                            <button onclick="updateStatus('${g.id}', 'approved')" class="btn btn-success">Approve</button>
+                            <button onclick="updateStatus('${g.id}', 'rejected')" class="btn btn-danger">Reject</button>
+                        ` : ''}
+                        ${g.status === 'approved' && !g.checkOutTime ? `
+                            <button onclick="checkOut('${g.id}')" class="btn btn-primary">Check Out</button>
+                        ` : ''}
+                        <button onclick="deleteGatepass('${g.id}')" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update status
+        function updateStatus(id, status) {
+            const gatepass = gatepasses.find(g => g.id === id);
+            if (gatepass) {
+                gatepass.status = status;
+                if (status === 'approved' && !gatepass.checkInTime) {
+                    gatepass.checkInTime = new Date().toISOString();
+                }
+                saveGatepasses();
+                renderGatepasses();
+            }
+        }
+
+        // Check out
+        function checkOut(id) {
+            const gatepass = gatepasses.find(g => g.id === id);
+            if (gatepass) {
+                gatepass.checkOutTime = new Date().toISOString();
+                gatepass.status = 'exited';
+                saveGatepasses();
+                renderGatepasses();
+            }
+        }
+
+        // Delete gatepass
+        function deleteGatepass(id) {
+            if (confirm('Are you sure you want to delete this gate pass?')) {
+                gatepasses = gatepasses.filter(g => g.id !== id);
+                saveGatepasses();
+                renderGatepasses();
+            }
+        }
+
+        // Save to localStorage
+        function saveGatepasses() {
+            localStorage.setItem('gatepasses', JSON.stringify(gatepasses));
+            updateStats();
+        }
+
+        // Helper functions
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function formatDateTime(dateStr) {
+            return new Date(dateStr).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Initial render
+        updateStats();
+        renderGatepasses();
+    </script>
+</body>
+</html>
