@@ -16,71 +16,30 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: #ffffff;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
             color: #333;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            color: #333;
-            margin-bottom: 40px;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .logo-icon {
-            font-size: 3rem;
-            width: 60px;
-            height: 60px;
-        }
-
-        .logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .logo-text {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ff6b6b;
-        }
-
-        .logo-text span {
-            color: #333;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: #333;
-        }
-
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            color: #666;
+            padding: 30px 20px;
         }
 
         .navbar {
-            background: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
             backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 15px 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -91,10 +50,21 @@
         .navbar-brand {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #ff6b6b;
+            color: white;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+        }
+
+        .navbar-logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .navbar-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .navbar-links {
@@ -106,7 +76,7 @@
 
         .navbar-link {
             padding: 8px 16px;
-            color: #ff6b6b;
+            color: white;
             text-decoration: none;
             font-weight: 600;
             border-radius: 6px;
@@ -114,12 +84,12 @@
         }
 
         .navbar-link:hover {
-            background: #f0f0f0;
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .navbar-link.active {
-            background: #ff6b6b;
-            color: white;
+            background: white;
+            color: #ff6b6b;
         }
 
         .card {
@@ -132,23 +102,30 @@
 
         .card h2 {
             font-size: 1.5rem;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             color: #ff6b6b;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 20px;
         }
 
         .search-box {
             display: flex;
             gap: 10px;
             margin-bottom: 30px;
+            flex-direction: column;
         }
 
         .search-box input {
             flex: 1;
-            padding: 14px 18px;
+            padding: 16px 20px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: border-color 0.3s;
+            width: 100%;
         }
 
         .search-box input:focus {
@@ -164,6 +141,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            width: 100%;
         }
 
         .btn-primary {
@@ -400,15 +378,11 @@
         }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
             .container {
-                padding: 10px;
+                padding: 20px 15px;
             }
 
-            .navbar {
+            .navbar-container {
                 flex-direction: column;
                 align-items: stretch;
             }
@@ -420,14 +394,6 @@
 
             .navbar-links {
                 justify-content: center;
-                width: 100%;
-            }
-
-            .search-box {
-                flex-direction: column;
-            }
-
-            .search-box input {
                 width: 100%;
             }
 
@@ -450,26 +416,8 @@
         }
 
         @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            .logo-text {
-                font-size: 1.5rem;
-            }
-
-            .logo-icon {
-                width: 50px;
-                height: 50px;
-            }
-
             .card h2 {
                 font-size: 1.3rem;
-            }
-
-            .btn {
-                width: 100%;
-                padding: 12px 20px;
             }
 
             .detail-item {
@@ -496,40 +444,30 @@
             .btn-close {
                 width: 100%;
             }
-
-            .qr-button-container button {
-                width: 100%;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo-container">
-                <div class="logo-icon">
-                    <img src="public/Screenshot 2026-04-17 121408.png" alt="Virginia Farms Logo">
-                </div>
-                <div class="logo-text">Virginia <span>Farms</span></div>
-            </div>
-            <h1>🔍 GatePass Status</h1>
-            <p>Check your gate pass approval status</p>
-        </header>
-
-        <nav class="navbar">
+    <nav class="navbar">
+        <div class="navbar-container">
             <div class="navbar-brand">
-                🔍 GatePass Status
+                <div class="navbar-logo">
+                    <img src="public/Screenshot 2026-04-17 144652.png" alt="Virginia Farms Logo">
+                </div>
+                <span>Virginia Farms Status</span>
             </div>
             <div class="navbar-links">
                 <a href="index.html" class="navbar-link">Request</a>
                 <a href="#" class="navbar-link active">Status</a>
                 <a href="admin.html" class="navbar-link">Admin</a>
             </div>
-        </nav>
+        </div>
+    </nav>
 
+    <div class="container">
         <div class="card">
-            <h2>Check Gate Pass Status</h2>
-            <p style="margin-bottom: 20px; color: #666;">Enter your Gate Pass ID to view the current status and details</p>
+            <h2>🔍 Gate Pass Status Check</h2>
+            <p>Enter your Gate Pass ID to view the current status and details</p>
             
             <div class="search-box">
                 <input type="text" id="gatepassIdInput" placeholder="Enter Gate Pass ID (e.g., 1744872800000)">
